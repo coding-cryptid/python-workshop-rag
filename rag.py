@@ -24,7 +24,7 @@ def build_prompt(question, retrieved_doc):
 Use only the context below to answer the question. If you don't know the answer, say you don't know.
 
 context:
-{retrieved_doc['title']}
+{retrieved_doc['content']}
 
 question:
 {question}
@@ -37,5 +37,5 @@ question = "What are some popular food items at the restaurant?"
 retrieved_doc = simple_retrieve(question, documents)
 prompt = build_prompt(question, retrieved_doc)
 
-print("Retrieved Document:", retrieved_doc['content'])
+print("Retrieved Document:", retrieved_doc['title'])
 print(prompt)
