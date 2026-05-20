@@ -19,8 +19,6 @@ def simple_retrieve(question, documents):
     scored_docs.sort(key=lambda x: x[0], reverse=True)
     return scored_docs[0][1]
 
-
-
 def generate_answer(question, retrieved_doc):
     content = retrieved_doc['content']
     question_words = set(question.lower().split())
