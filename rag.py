@@ -19,23 +19,20 @@ def simple_retrieve(question, documents):
     scored_docs.sort(key=lambda x: x[0], reverse=True)
     return scored_docs[0][1]
 
-def build_prompt(question, retrieved_doc):
-    return f""" 
-Use only the context below to answer the question. If you don't know the answer, say you don't know.
 
-context:
-{retrieved_doc['content']}
 
-question:
-{question}
+def generate_answer(question, retrieved_doc):
+    content = retrieved_doc['content']
+    question_words = set(question.lower().split())
+    content_words = set(content.lower().split())
+    score = len(question_words.intersection(content_words))
+    if score == 0:
+        return "I don't know."
+    return content
 
-answer:
-"""
-
-question = "What are some popular food items at the restaurant?"
-
+question = "What is the policy for using extensions?"
 retrieved_doc = simple_retrieve(question, documents)
-prompt = build_prompt(question, retrieved_doc)
-
+answer = generate_answer(question, retrieved_doc)
+print("Question:", question)
 print("Retrieved Document:", retrieved_doc['title'])
-print(prompt)
+print("Answer:", answer)
